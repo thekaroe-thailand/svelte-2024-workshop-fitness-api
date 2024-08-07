@@ -21,3 +21,12 @@ model User {
   level String @default("admin") // admin, employee, customer
   status String
 }
+
+model Member {
+  id Int @id() @default(autoincrement())
+  name String
+  phone String
+  gender String @default("male") // male, female
+  registerDate DateTime
+  expireDate DateTime
+}
