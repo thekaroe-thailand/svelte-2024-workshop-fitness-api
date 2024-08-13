@@ -20,6 +20,12 @@ app.delete("/api/member/remove/:id", (req, res) =>
 app.put("/api/member/update/:id", (req, res) =>
   memberController.update(req, res)
 );
+app.post("/api/member/membership", (req, res) =>
+  memberController.membership(req, res)
+);
+app.get("/api/member/membershipList/:member_id", (req, res) =>
+  memberController.membershipList(req, res)
+);
 
 app.listen(3000, () => {
   console.log("API Server Started");

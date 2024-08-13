@@ -59,4 +59,45 @@ module.exports = {
       return res.status(500).send({ error: e.message });
     }
   },
+  membership: async (req, res) => {
+    try {
+      const payload = {
+        member_id: req.body.member_id,
+        pay_date: new Date(),
+        money: req.body.money,
+        remark: req.body.remark,
+      };
+
+      await prisma.membership.create({
+        data: payload,
+      });
+
+      await prisma.member.update({
+        data: {
+          expireDate: new Date(req.body.expire_date),
+        },
+        where: {
+          id: req.body.member_id,
+        },
+      });
+
+      return res.send({ message: "success" });
+    } catch (e) {
+      return res.status(500).send({ error: e.message });
+    }
+  },
+  membershipList: async (req, res) => {
+    try {
+      const member_id = parseInt(req.params.member_id);
+      const rows = await prisma.membership.findMany({
+        where: {
+          member_id: member_id,
+        },
+      });
+
+      return res.send({ results: rows });
+    } catch (e) {
+      return res.status(500).send({ error: e.message });
+    }
+  },
 };
