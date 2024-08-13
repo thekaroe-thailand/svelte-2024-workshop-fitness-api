@@ -93,9 +93,52 @@ module.exports = {
         where: {
           member_id: member_id,
         },
+        include: {
+          Member: true,
+        },
       });
 
       return res.send({ results: rows });
+    } catch (e) {
+      return res.status(500).send({ error: e.message });
+    }
+  },
+  removeHistory: async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await prisma.membership.delete({
+        where: {
+          id: id,
+        },
+      });
+      return res.send({ message: "success" });
+    } catch (e) {
+      return res.status(500).send({ error: e.message });
+    }
+  },
+  membershipUpdate: async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await prisma.membership.update({
+        data: {
+          money: req.body.money,
+          remark: req.body.remark,
+        },
+        where: {
+          id: id,
+        },
+      });
+
+      await prisma.member.update({
+        data: {
+          expireDate: new Date(req.body.expire_date),
+        },
+        where: {
+          id: req.body.member_id,
+        },
+      });
+
+      return res.send({ message: "success" });
     } catch (e) {
       return res.status(500).send({ error: e.message });
     }
