@@ -5,11 +5,15 @@ const app = express();
 
 const userController = require("./controllers/UserController");
 const memberController = require("./controllers/MemberController");
+const checkinController = require('./controllers/CheckInController');
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.delete('/api/checkin/remove/:id', (req, res) => checkinController.remove(req, res));
+app.get('/api/checkin/list', (req, res) => checkinController.list(req, res));
+app.post('/api/checkin/create', (req, res) => checkinController.create(req, res));
 app.post("/api/user/signIn", (req, res) => userController.signIn(req, res));
 app.get("/api/user/info", (req, res) => userController.info(req, res));
 app.post("/api/member/create", (req, res) => memberController.create(req, res));

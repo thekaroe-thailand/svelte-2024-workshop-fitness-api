@@ -14,30 +14,37 @@ datasource db {
 }
 
 model User {
-  id Int @id() @default(autoincrement())
-  name String
+  id       Int    @id() @default(autoincrement())
+  name     String
   username String
-  password String 
-  level String @default("admin") // admin, employee, customer
-  status String
+  password String
+  level    String @default("admin") // admin, employee, customer
+  status   String
 }
 
 model Member {
-  id Int @id() @default(autoincrement())
-  name String
-  phone String
-  gender String @default("male") // male, female
+  id           Int          @id() @default(autoincrement())
+  name         String
+  phone        String
+  gender       String       @default("male") // male, female
   registerDate DateTime
-  expireDate DateTime
-  MemberShips Membership[] // 1 : N
+  expireDate   DateTime
+  MemberShips  Membership[] // 1 : N
+  CheckIns     Checkin[] // 1 : N
 }
 
 model Membership {
-  id Int @id() @default(autoincrement())
+  id        Int      @id() @default(autoincrement())
   member_id Int
-  Member Member @relation(fields: [member_id], references: [id]) // N : 1
-  money Int
-  pay_date DateTime
-  remark String? // หมายเหตุ มีหรือไม่มีก็ได้
+  Member    Member   @relation(fields: [member_id], references: [id]) // N : 1
+  money     Int
+  pay_date  DateTime
+  remark    String? // หมายเหตุ มีหรือไม่มีก็ได้
 }
 
+model Checkin {
+  id           Int      @id() @default(autoincrement())
+  member_id    Int
+  Member       Member   @relation(fields: [member_id], references: [id])
+  checkin_date DateTime @default(now())
+}
