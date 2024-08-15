@@ -6,11 +6,14 @@ const app = express();
 const userController = require("./controllers/UserController");
 const memberController = require("./controllers/MemberController");
 const checkinController = require('./controllers/CheckInController');
+const deviceController = require("./controllers/DeviceController");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get('/api/device/list', (req, res) => deviceController.list(req, res));
+app.post("/api/device/create", (req, res) => deviceController.create(req, res));
 app.delete('/api/checkin/remove/:id', (req, res) => checkinController.remove(req, res));
 app.get('/api/checkin/list', (req, res) => checkinController.list(req, res));
 app.post('/api/checkin/create', (req, res) => checkinController.create(req, res));

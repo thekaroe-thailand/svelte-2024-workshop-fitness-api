@@ -48,3 +48,11 @@ model Checkin {
   Member       Member   @relation(fields: [member_id], references: [id])
   checkin_date DateTime @default(now())
 }
+
+model Device {
+  id     Int     @id() @default(autoincrement())
+  name   String
+  price  Int
+  remark String?
+  qty    Int
+}
