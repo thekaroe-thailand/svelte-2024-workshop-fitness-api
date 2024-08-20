@@ -13,6 +13,15 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.put("/api/employeeAndTrainer/update/:id", (req, res) =>
+  employeeAndTrainer.update(req, res)
+);
+app.delete("/api/employeeAndTrainer/remove/:id", (req, res) =>
+  employeeAndTrainer.remove(req, res)
+);
+app.get("/api/employeeAndTrainer/list", (req, res) =>
+  employeeAndTrainer.list(req, res)
+);
 app.post("/api/employeeAndTrainer/create", (req, res) =>
   employeeAndTrainer.create(req, res)
 );
