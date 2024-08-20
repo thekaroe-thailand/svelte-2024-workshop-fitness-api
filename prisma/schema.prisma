@@ -56,3 +56,16 @@ model Device {
   remark String?
   qty    Int
 }
+
+model EmployeeAndTrainer {
+  id Int @id() @default(autoincrement())
+  gender String
+  name String
+  phone String
+  address String 
+  status String @default("use") // use, delete
+  level String @default("employee") // employeee, trainer
+  salary Int
+}
+
+

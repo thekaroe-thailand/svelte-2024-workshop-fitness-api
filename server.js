@@ -5,18 +5,32 @@ const app = express();
 
 const userController = require("./controllers/UserController");
 const memberController = require("./controllers/MemberController");
-const checkinController = require('./controllers/CheckInController');
+const checkinController = require("./controllers/CheckInController");
 const deviceController = require("./controllers/DeviceController");
+const employeeAndTrainer = require("./controllers/EmployeeAndTrainerController");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get('/api/device/list', (req, res) => deviceController.list(req, res));
+app.post("/api/employeeAndTrainer/create", (req, res) =>
+  employeeAndTrainer.create(req, res)
+);
+app.put("/api/device/update/:id", (req, res) =>
+  deviceController.update(req, res)
+);
+app.delete("/api/device/remove/:id", (req, res) =>
+  deviceController.remove(req, res)
+);
+app.get("/api/device/list", (req, res) => deviceController.list(req, res));
 app.post("/api/device/create", (req, res) => deviceController.create(req, res));
-app.delete('/api/checkin/remove/:id', (req, res) => checkinController.remove(req, res));
-app.get('/api/checkin/list', (req, res) => checkinController.list(req, res));
-app.post('/api/checkin/create', (req, res) => checkinController.create(req, res));
+app.delete("/api/checkin/remove/:id", (req, res) =>
+  checkinController.remove(req, res)
+);
+app.get("/api/checkin/list", (req, res) => checkinController.list(req, res));
+app.post("/api/checkin/create", (req, res) =>
+  checkinController.create(req, res)
+);
 app.post("/api/user/signIn", (req, res) => userController.signIn(req, res));
 app.get("/api/user/info", (req, res) => userController.info(req, res));
 app.post("/api/member/create", (req, res) => memberController.create(req, res));
