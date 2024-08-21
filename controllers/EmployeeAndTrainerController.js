@@ -70,4 +70,32 @@ module.exports = {
       return res.status(500).send({ error: e.message });
     }
   },
+  filter: async (req, res) => {
+    try {
+      let condition = {};
+
+      if (req.body.gender != "all") {
+        condition.gender = req.body.gender;
+      }
+
+      if (req.body.level != "all") {
+        condition.level = req.body.level;
+      }
+
+      if (req.body.status != "all") {
+        condition.status = req.body.status;
+      }
+
+      const rows = await prisma.employeeAndTrainer.findMany({
+        where: condition,
+        orderBy: {
+          id: "desc",
+        },
+      });
+
+      return res.send({ results: rows });
+    } catch (e) {
+      return res.status(500).send({ error: e.message });
+    }
+  },
 };

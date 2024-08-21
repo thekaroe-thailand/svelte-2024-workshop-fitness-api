@@ -66,6 +66,24 @@ model EmployeeAndTrainer {
   status String @default("use") // use, delete
   level String @default("employee") // employeee, trainer
   salary Int
+  CourseAndTrainers CouseAndTrainer[]
 }
 
+model Course {
+  id Int @id() @default(autoincrement())
+  name String
+  price Int
+  detail String
+  remark String
+  dayPerWeek Int 
+  hourPerDay Int
+  CourseAndTrainers CouseAndTrainer[]
+}
 
+model CouseAndTrainer {
+  id Int @id() @default(autoincrement())
+  courseId Int 
+  userId Int 
+  Course Course @relation(fields: [courseId], references: [id])
+  Trainer EmployeeAndTrainer @relation(fields: [userId], references: [id])
+}

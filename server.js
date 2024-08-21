@@ -8,11 +8,16 @@ const memberController = require("./controllers/MemberController");
 const checkinController = require("./controllers/CheckInController");
 const deviceController = require("./controllers/DeviceController");
 const employeeAndTrainer = require("./controllers/EmployeeAndTrainerController");
+const courseController = require("./controllers/CourseController");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.post("/api/course/create", (req, res) => courseController.create(req, res));
+app.post("/api/employeeAndTrainer/filter", (req, res) =>
+  employeeAndTrainer.filter(req, res)
+);
 app.put("/api/employeeAndTrainer/update/:id", (req, res) =>
   employeeAndTrainer.update(req, res)
 );
