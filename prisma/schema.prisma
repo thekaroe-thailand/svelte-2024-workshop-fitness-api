@@ -78,6 +78,7 @@ model Course {
   dayPerWeek Int 
   hourPerDay Int
   CourseAndTrainers CouseAndTrainer[]
+  status String @default("use") // use, delete
 }
 
 model CouseAndTrainer {

@@ -14,6 +14,13 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.put("/api/course/update/:id", (req, res) =>
+  courseController.upate(req, res)
+);
+app.delete("/api/course/remove/:id", (req, res) =>
+  courseController.remove(req, res)
+);
+app.get("/api/course/list", (req, res) => courseController.list(req, res));
 app.post("/api/course/create", (req, res) => courseController.create(req, res));
 app.post("/api/employeeAndTrainer/filter", (req, res) =>
   employeeAndTrainer.filter(req, res)
