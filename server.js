@@ -9,11 +9,15 @@ const checkinController = require("./controllers/CheckInController");
 const deviceController = require("./controllers/DeviceController");
 const employeeAndTrainer = require("./controllers/EmployeeAndTrainerController");
 const courseController = require("./controllers/CourseController");
+const courseAndTrainer = require("./controllers/CourseAndTrainerController");
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.post("/api/courseAndTrainer/create", (req, res) =>
+  courseAndTrainer.create(req, res)
+);
 app.put("/api/course/update/:id", (req, res) =>
   courseController.upate(req, res)
 );

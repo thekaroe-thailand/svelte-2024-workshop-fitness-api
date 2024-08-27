@@ -23,6 +23,13 @@ module.exports = {
   list: async (req, res) => {
     try {
       const rows = await prisma.course.findMany({
+        include: {
+          CourseAndTrainers: {
+            include: {
+              Trainer: true,
+            },
+          },
+        },
         orderBy: {
           id: "desc",
         },
