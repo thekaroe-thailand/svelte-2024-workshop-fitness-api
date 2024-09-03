@@ -12,6 +12,8 @@ module.exports = {
           address: req.body.address,
           salary: req.body.salary,
           level: req.body.level,
+          username: req.body.username,
+          password: req.body.password,
         },
       });
 
@@ -59,6 +61,8 @@ module.exports = {
           address: req.body.address,
           level: req.body.level,
           gender: req.body.gender,
+          username: req.body.username,
+          password: req.body.password,
         },
         where: {
           id: parseInt(req.params.id),

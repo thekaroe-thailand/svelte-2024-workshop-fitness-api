@@ -31,6 +31,7 @@ model Member {
   expireDate   DateTime
   MemberShips  Membership[] // 1 : N
   CheckIns     Checkin[] // 1 : N
+  CourseAndMember CourseAndMember[] // 1 : N
 }
 
 model Membership {
@@ -67,6 +68,8 @@ model EmployeeAndTrainer {
   level String @default("employee") // employeee, trainer
   salary Int
   CourseAndTrainers CouseAndTrainer[]
+  username String?
+  password String?
 }
 
 model Course {
@@ -79,6 +82,7 @@ model Course {
   hourPerDay Int
   CourseAndTrainers CouseAndTrainer[]
   status String @default("use") // use, delete
+  CourseAndMember CourseAndMember[]
 }
 
 model CouseAndTrainer {
@@ -88,3 +92,27 @@ model CouseAndTrainer {
   Course Course @relation(fields: [courseId], references: [id])
   Trainer EmployeeAndTrainer @relation(fields: [userId], references: [id])
 }
+
+model CourseAndMember {
+  id Int @id() @default(autoincrement())
+  courseId Int 
+  memberId Int
+  Course Course @relation(fields: [courseId], references: [id])
+  Member Member @relation(fields: [memberId], references: [id])
+  qty Int
+  remark String?
+  createdDate DateTime @default(now())
+  expireDate DateTime
+  price Int
+}
+
+model PayRecord {
+  id Int @id() @default(autoincrement())
+  name String
+  qty Int 
+  price Int 
+  payDate DateTime
+  remark String
+}
+
+
