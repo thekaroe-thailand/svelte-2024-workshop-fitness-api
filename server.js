@@ -19,6 +19,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/public", express.static("public"));
 
+app.post("/api/user/changeProfile", (req, res) =>
+  userController.changeProfile(req, res)
+);
 app.post("/api/report/payBetween", (req, res) =>
   reportController.payBetween(req, res)
 );
