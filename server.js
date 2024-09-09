@@ -22,7 +22,7 @@ const checkLogin = (req, res, next) => {
     dotenv.config();
 
     const key = process.env.SECRET_KEY;
-    const payload = jwt.verify(token, key);
+    jwt.verify(token, key);
 
     next();
   } catch (e) {
