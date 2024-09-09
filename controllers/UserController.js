@@ -3,9 +3,13 @@ const prisma = new PrismaClient();
 const jwt = require("jsonwebtoken");
 const key = "my secret key for jwt of project fitness on Svelte";
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 module.exports = {
   signIn: async (req, res) => {
     try {
+      const key = process.env.SECRET_KEY;
       const u = req.body.username;
       const p = req.body.password;
 
@@ -16,11 +20,6 @@ module.exports = {
           id: true,
           name: true,
           level: true,
-        },
-        where: {
-          username: u,
-          password: p,
-          status: "use",
         },
       });
 
