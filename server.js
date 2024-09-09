@@ -14,7 +14,7 @@ const courseAndMemberController = require("./controllers/CourseAndMemberControll
 const payRecordController = require("./controllers/PayRecordController");
 const reportController = require("./controllers/ReportController");
 
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/public", express.static("public"));
