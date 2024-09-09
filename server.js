@@ -14,12 +14,28 @@ const courseAndMemberController = require("./controllers/CourseAndMemberControll
 const payRecordController = require("./controllers/PayRecordController");
 const reportController = require("./controllers/ReportController");
 
+const checkLogin = (req, res, next) => {
+  try {
+    const token = req.headers["authorization"];
+    const jwt = require("jsonwebtoken");
+    const dotenv = require("dotenv");
+    dotenv.config();
+
+    const key = process.env.SECRET_KEY;
+    const payload = jwt.verify(token, key);
+
+    next();
+  } catch (e) {
+    return res.status(500).send({ error: e.message });
+  }
+};
+
 app.use(cors({ origin: "*" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/public", express.static("public"));
 
-app.post("/api/user/changeProfile", (req, res) =>
+app.post("/api/user/changeProfile", checkLogin, (req, res, next) =>
   userController.changeProfile(req, res)
 );
 app.post("/api/report/payBetween", (req, res) =>
@@ -32,7 +48,7 @@ app.put("/api/payRecord/update", (req, res) =>
 app.delete("/api/payRecord/remove/:id", (req, res) =>
   payRecordController.remove(req, res)
 );
-app.get("/api/payRecord/list", (req, res) =>
+app.get("/api/payRecord/list", checkLogin, (req, res, next) =>
   payRecordController.list(req, res)
 );
 app.post("/api/payRecord/create", (req, res) =>
